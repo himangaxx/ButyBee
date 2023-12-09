@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "6213144255",
+    "project_id": "butybee-74077",
+    "storage_bucket": "butybee-74077.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:6213144255:android:015fae665b0d83cfde800a",
+        "android_client_info": {
+          "package_name": "com.example.admin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6IGZMhjzL02ctCyX4K0X34KizcXfaX34"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
