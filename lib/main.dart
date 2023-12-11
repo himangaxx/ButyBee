@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Vast Fashion',
+      title: 'ButyBee',
       theme: ThemeData(
         // colorScheme: ColorScheme.dark(),
         colorScheme: ColorScheme.fromSeed(

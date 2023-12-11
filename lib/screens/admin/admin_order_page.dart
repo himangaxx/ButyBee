@@ -1,9 +1,6 @@
-import 'package:admin/screens/Customer/account_page.dart';
-import 'package:admin/screens/Customer/cart_page.dart';
-import 'package:admin/screens/Customer/home_screen.dart';
 import 'package:admin/screens/admin/admin_account_page.dart';
 import 'package:admin/screens/admin/admin_analytics_page.dart';
-import 'package:admin/screens/admin/admin_product_page.dart';
+import 'package:admin/screens/admin/product_home.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -50,43 +47,45 @@ class _OrdersTabState extends State<OrdersTab>
         ],
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               icon: const Icon(
-                Icons.home,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.analytics_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to home
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AnalyticsTab(),
+                    builder: (context) => const AnalyticsTab(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.assignment,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.shopping_bag_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
+                // Navigate to orders
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ProductsTab(),
+                    builder: (context) => product_home(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.shopping_cart,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to cart page
@@ -100,15 +99,15 @@ class _OrdersTabState extends State<OrdersTab>
             ),
             IconButton(
               icon: const Icon(
-                Icons.account_circle,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to account
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AccountTab(),
+                    builder: (context) => const AccountTab(),
                   ),
                 );
               },

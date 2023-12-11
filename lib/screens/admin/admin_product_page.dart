@@ -3,40 +3,86 @@ import 'package:admin/screens/admin/admin_account_page.dart';
 import 'package:admin/screens/admin/admin_analytics_page.dart';
 import 'package:admin/screens/admin/admin_order_page.dart';
 import 'package:admin/screens/admin/edit_product.dart';
+import 'package:admin/screens/admin/product_home.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProductsTab extends StatelessWidget {
+class ProductsTab extends StatefulWidget {
   const ProductsTab({Key? key}) : super(key: key);
+
+  @override
+  _ProductsTabState createState() => _ProductsTabState();
+}
+
+class _ProductsTabState extends State<ProductsTab> {
+  TextEditingController _searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              // Handle search action
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AddProduct(),
+                ),
+              );
+            },
+          ),
+        ],
         title: const Text('Products List'),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    30), // Adjust the value to change the oval shape
+                color: const Color.fromARGB(
+                    255, 226, 226, 226), // Background color of the search bar
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    // Handle search query changes
+                    // You may want to update the displayed product list based on the search query
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search products',
+                    border: InputBorder.none, // Remove the default border
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        // Clear the search query
+                        _searchController.clear();
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
       body: const ProductList(),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          // Open AddProductForm when FloatingActionButton is pressed
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const AddProduct(),
-            ),
-          );
-        },
-        child: const Icon(Icons.add),
-      ),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               icon: const Icon(
-                Icons.analytics,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.analytics_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to home
@@ -50,23 +96,23 @@ class ProductsTab extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(
-                Icons.shopping_basket,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.shopping_bag_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to orders
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ProductsTab(),
+                    builder: (context) => product_home(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.assignment,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to cart page
@@ -80,8 +126,8 @@ class ProductsTab extends StatelessWidget {
             ),
             IconButton(
               icon: const Icon(
-                Icons.account_circle,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to account
@@ -125,7 +171,7 @@ class ProductList extends StatelessWidget {
             var productId = products[index].id;
 
             return Card(
-                surfaceTintColor: Color.fromARGB(255, 7, 118, 68),
+                surfaceTintColor: Color.fromARGB(255, 7, 44, 118),
                 elevation: 5, // Set the elevation for the raised effect
                 margin: EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                 child: ListTile(
@@ -136,8 +182,7 @@ class ProductList extends StatelessWidget {
                     fit: BoxFit.cover, // Choose the appropriate BoxFit
                   ),
                   title: Text(product['name']),
-                  subtitle:
-                      Text('${product['description']}\n\$${product['price']}'),
+                  subtitle: Text('${product['price']}'),
                   // You can customize this ListTile as needed
                   trailing: Row(
                     mainAxisSize: MainAxisSize.min,

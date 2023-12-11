@@ -1,5 +1,7 @@
+import 'package:admin/reusable_widgets/reusablewidgets.dart';
 import 'package:admin/screens/admin/admin_page.dart';
 import 'package:admin/screens/Customer/home_screen.dart';
+import 'package:admin/screens/signin_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,58 +22,77 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextField(
-              controller: _userNameController,
-              decoration: const InputDecoration(labelText: 'Username'),
+        body: Container(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            decoration: const BoxDecoration(
+              color: Colors.blue,
             ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _emailController,
-              decoration: const InputDecoration(labelText: 'Email'),
-            ),
-            const SizedBox(height: 16),
-            TextField(
-              controller: _passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(labelText: 'Password'),
-            ),
-            const SizedBox(height: 16),
-            DropdownButtonFormField<String>(
-              value: _selectedUserRole,
-              items: ['customer', 'admin']
-                  .map((role) => DropdownMenuItem(
-                        value: role,
-                        child: Text(role),
-                      ))
-                  .toList(),
-              onChanged: (value) {
-                setState(() {
-                  _selectedUserRole = value ?? 'customer';
-                });
-              },
-              decoration: const InputDecoration(
-                labelText: 'User Type',
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(
+                    20, MediaQuery.of(context).size.height * 0.2, 20, 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    const SizedBox(height: 30),
+                    Text(
+                      "Hey",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white),
+                    ),
+                    Text(
+                      "Signup Now...",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    reusableTextField("Enter Username", Icons.person_outline,
+                        false, _userNameController),
+                    const SizedBox(height: 30),
+                    reusableTextField("Enter Email", Icons.email_outlined,
+                        false, _emailController),
+                    const SizedBox(height: 30),
+                    reusableTextField("Enter Password", Icons.lock_outline,
+                        true, _passwordController),
+                    const SizedBox(height: 30),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      height: 60,
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.resolveWith((states) {
+                            if (states.contains(MaterialState.pressed)) {
+                              return Colors.black26;
+                            }
+                            return Colors.white;
+                          }),
+                        ),
+                        onPressed: () async {
+                          await _register();
+                        },
+                        child: const Text(
+                          'Register',
+                          style: const TextStyle(
+                              color: Colors.black87,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    signInOption()
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () async {
-                await _register();
-              },
-              child: const Text('Register'),
-            ),
-          ],
-        ),
-      ),
-    );
+            )));
   }
 
   Future<void> _register() async {
@@ -89,7 +110,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .set({
         'username': _userNameController.text.trim(),
         'email': _emailController.text.trim(),
-        'userType': _selectedUserRole,
+        'userType': 'customer',
       });
 
       // Navigate to home screen based on user type
@@ -102,6 +123,25 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       print('Failed to register: $e');
       // Handle registration errors (e.g., display an error message)
     }
+  }
+
+  signInOption() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        const Text("Already have an account?  ",
+            style: TextStyle(color: Colors.white70)),
+        GestureDetector(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SignInScreen()));
+          },
+          child: const Text("Sign In",
+              style:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        )
+      ],
+    );
   }
 }
 

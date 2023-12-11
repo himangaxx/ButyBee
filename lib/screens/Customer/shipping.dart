@@ -34,43 +34,45 @@ class _ViewShippingDetailsPageState extends State<ViewShippingDetailsPage> {
         title: Text('Shipping Details'),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               icon: const Icon(
-                Icons.home,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.home_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to home
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.assignment,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
+                // Navigate to orders
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderPage(),
+                    builder: (context) => const OrderPage(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.shopping_cart,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.shopping_cart_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to cart page
@@ -84,15 +86,15 @@ class _ViewShippingDetailsPageState extends State<ViewShippingDetailsPage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.account_circle,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to account
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AccountPage(),
+                    builder: (context) => const AccountPage(),
                   ),
                 );
               },

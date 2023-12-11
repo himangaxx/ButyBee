@@ -1,34 +1,16 @@
-import 'package:admin/screens/Customer/cart_page.dart';
-import 'package:admin/screens/Customer/home_screen.dart';
-import 'package:admin/screens/Customer/order_page.dart';
-import 'package:admin/screens/Customer/shipping_details.dart';
-import 'package:admin/screens/signin_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:admin/screens/admin/add_product.dart';
+import 'package:admin/screens/admin/admin_account_page.dart';
+import 'package:admin/screens/admin/admin_analytics_page.dart';
+import 'package:admin/screens/admin/admin_order_page.dart';
+import 'package:admin/screens/admin/admin_product_page.dart';
 import 'package:flutter/material.dart';
 
-class AccountPage extends StatefulWidget {
-  const AccountPage({super.key});
-
-  @override
-  State<AccountPage> createState() => _AccountPageState();
-}
-
-class _AccountPageState extends State<AccountPage> {
-  late String userId; // Declare userId at the class level
-
-  @override
-  void initState() {
-    super.initState();
-    // Get the current user ID
-    userId = FirebaseAuth.instance.currentUser!.uid;
-  }
-
+class product_home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // String? userId = getCurrentUserId();
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Profile'),
+        title: Text('Admin Product Page'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -43,9 +25,7 @@ class _AccountPageState extends State<AccountPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ShippingDetailsPage(
-                        userId: '',
-                      ),
+                      builder: (context) => const AddProduct(),
                     ),
                   );
                 },
@@ -58,7 +38,7 @@ class _AccountPageState extends State<AccountPage> {
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Text(
-                    'Change Password',
+                    'Add Product',
                     style: TextStyle(fontSize: 20, color: Colors.white),
                   ),
                 ),
@@ -72,9 +52,7 @@ class _AccountPageState extends State<AccountPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ShippingDetailsPage(
-                        userId: '',
-                      ),
+                      builder: (context) => const ProductsTab(),
                     ),
                   );
                 },
@@ -85,7 +63,7 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 child: Text(
-                  'Edit Shipping Address',
+                  'Edit Product',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
@@ -95,12 +73,8 @@ class _AccountPageState extends State<AccountPage> {
               height: 150,
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SignInScreen(),
-                    ),
-                  );
+                  // Handle notifications action
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => NotificationsPage()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color.fromARGB(255, 6, 94, 157),
@@ -109,31 +83,31 @@ class _AccountPageState extends State<AccountPage> {
                   ),
                 ),
                 child: Text(
-                  'Logout',
+                  'Notifications',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
             ),
-            // SizedBox(
-            //   width: double.maxFinite,
-            //   height: 150,
-            //   child: ElevatedButton(
-            //     onPressed: () {
-            //       // Handle orders action
-            //       // Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersPage()));
-            //     },
-            //     style: ElevatedButton.styleFrom(
-            //       backgroundColor: Color.fromARGB(255, 6, 94, 157),
-            //       shape: RoundedRectangleBorder(
-            //         borderRadius: BorderRadius.circular(10.0),
-            //       ),
-            //     ),
-            //     child: Text(
-            //       'Orders',
-            //       style: TextStyle(fontSize: 20, color: Colors.white),
-            //     ),
-            //   ),
-            // ),
+            SizedBox(
+              width: double.maxFinite,
+              height: 150,
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle orders action
+                  // Navigator.push(context, MaterialPageRoute(builder: (context) => OrdersPage()));
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 6, 94, 157),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+                child: Text(
+                  'Orders',
+                  style: TextStyle(fontSize: 20, color: Colors.white),
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -145,7 +119,7 @@ class _AccountPageState extends State<AccountPage> {
           children: [
             IconButton(
               icon: const Icon(
-                Icons.home_outlined,
+                Icons.analytics_outlined,
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
@@ -153,7 +127,22 @@ class _AccountPageState extends State<AccountPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const HomePage(),
+                    builder: (context) => const AnalyticsTab(),
+                  ),
+                );
+              },
+            ),
+            IconButton(
+              icon: const Icon(
+                Icons.shopping_bag_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
+              onPressed: () {
+                // Navigate to orders
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => product_home(),
                   ),
                 );
               },
@@ -164,26 +153,11 @@ class _AccountPageState extends State<AccountPage> {
                 color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
-                // Navigate to orders
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
                 // Navigate to cart page
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CartPage(),
+                    builder: (context) => OrdersTab(),
                   ),
                 );
               },
@@ -198,7 +172,7 @@ class _AccountPageState extends State<AccountPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AccountPage(),
+                    builder: (context) => const AccountTab(),
                   ),
                 );
               },
@@ -208,9 +182,4 @@ class _AccountPageState extends State<AccountPage> {
       ),
     );
   }
-}
-
-String? getCurrentUserId() {
-  User? user = FirebaseAuth.instance.currentUser;
-  return user?.uid;
 }

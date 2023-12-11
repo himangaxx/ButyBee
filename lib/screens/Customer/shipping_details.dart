@@ -92,36 +92,46 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
         ),
       ),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
-              icon: const Icon(Icons.home),
+              icon: const Icon(
+                Icons.home_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
               onPressed: () {
                 // Navigate to home
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
             ),
             IconButton(
-              icon: const Icon(Icons.assignment),
+              icon: const Icon(
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
               onPressed: () {
                 // Navigate to orders
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderPage(),
+                    builder: (context) => const OrderPage(),
                   ),
                 );
               },
             ),
             IconButton(
-              icon: const Icon(Icons.shopping_cart),
+              icon: const Icon(
+                Icons.shopping_cart_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
               onPressed: () {
                 // Navigate to cart page
                 Navigator.push(
@@ -133,13 +143,16 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
               },
             ),
             IconButton(
-              icon: const Icon(Icons.account_circle),
+              icon: const Icon(
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
+              ),
               onPressed: () {
                 // Navigate to account
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AccountPage(),
+                    builder: (context) => const AccountPage(),
                   ),
                 );
               },
@@ -187,7 +200,7 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
         .collection('shippingDetails')
         .doc('user_shipping_details');
 
-    bool shippingDetailsExist = (await shippingDetailsRef.get()).exists;
+    // bool shippingDetailsExist = (await shippingDetailsRef.get()).exists;
 
     // Save or update shipping details to Firestore
     await shippingDetailsRef.set({

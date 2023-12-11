@@ -25,60 +25,90 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Vast Fashion'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.search),
-            onPressed: () {
-              // Handle search action
-              showSearch(
-                context: context,
-                delegate: ProductSearch(products: []),
-              );
-            },
+        title: const Text(
+          '              ButyBee',
+          style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              color: Colors.blueAccent),
+        ),
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(
+                    30), // Adjust the value to change the oval shape
+                color: const Color.fromARGB(
+                    255, 226, 226, 226), // Background color of the search bar
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: TextField(
+                  controller: _searchController,
+                  onChanged: (value) {
+                    // Handle search query changes
+                    // You may want to update the displayed product list based on the search query
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Search products',
+                    border: InputBorder.none, // Remove the default border
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        // Clear the search query
+                        _searchController.clear();
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ),
           ),
-        ],
+        ),
       ),
       body: ProductList(searchQuery: _searchController.text),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               icon: const Icon(
-                Icons.home,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.home_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to home
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.assignment,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to orders
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => OrderPage(),
+                    builder: (context) => const OrderPage(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.shopping_cart,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.shopping_cart_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to cart page
@@ -92,15 +122,15 @@ class _HomePageState extends State<HomePage> {
             ),
             IconButton(
               icon: const Icon(
-                Icons.account_circle,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to account
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AccountPage(),
+                    builder: (context) => const AccountPage(),
                   ),
                 );
               },
@@ -138,7 +168,7 @@ class ProductList extends StatelessWidget {
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // Adjust the number of cards per row as needed
+            crossAxisCount: 1, // Adjust the number of cards per row as needed
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
           ),
@@ -174,7 +204,7 @@ class ProductList extends StatelessWidget {
                       left: 0,
                       right: 0,
                       child: Container(
-                        color: Colors.black.withOpacity(0.5),
+                        color: Color.fromARGB(255, 6, 17, 113).withOpacity(0.5),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(

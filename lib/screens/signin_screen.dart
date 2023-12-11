@@ -4,7 +4,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../reusable_widgets/reusablewidgets.dart';
-import '../utils/color_util.dart';
 import 'Customer/home_screen.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -24,23 +23,33 @@ class _SignInScreenState extends State<SignInScreen> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              hexStringToColor("#47894b"),
-              hexStringToColor("#5ea758"),
-              hexStringToColor("#8bbd78"),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-          ),
+        decoration: const BoxDecoration(
+          color: Colors.blue,
         ),
         child: SingleChildScrollView(
           child: Padding(
             padding: EdgeInsets.fromLTRB(
                 20, MediaQuery.of(context).size.height * 0.2, 20, 0),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
+                const SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Hey",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white),
+                ),
+                Text(
+                  "Login Now...",
+                  style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
                 const SizedBox(
                   height: 30,
                 ),
@@ -54,7 +63,6 @@ class _SignInScreenState extends State<SignInScreen> {
                 const SizedBox(
                   height: 30,
                 ),
-                forgetPassword(context),
                 signInSignUpButton(context, true, () {
                   FirebaseAuth.instance
                       .signInWithEmailAndPassword(
@@ -132,22 +140,6 @@ class _SignInScreenState extends State<SignInScreen> {
                   TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         )
       ],
-    );
-  }
-
-  Widget forgetPassword(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 35,
-      alignment: Alignment.bottomRight,
-      child: TextButton(
-        child: const Text(
-          "Forgot Password? ",
-          style: TextStyle(color: Colors.white70),
-          textAlign: TextAlign.right,
-        ),
-        onPressed: () {},
-      ),
     );
   }
 }

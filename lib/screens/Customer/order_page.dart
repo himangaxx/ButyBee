@@ -12,18 +12,14 @@ class OrderPage extends StatefulWidget {
   State<OrderPage> createState() => _OrderPageState();
 }
 
-class _OrderPageState extends State<OrderPage>
-    with SingleTickerProviderStateMixin {
+class _OrderPageState extends State<OrderPage> {
   String? userId;
-  TabController? _tabController;
 
   @override
   void initState() {
     super.initState();
     // Get the current user ID
     userId = FirebaseAuth.instance.currentUser?.uid;
-    // Initialize the tab controller
-    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -31,58 +27,48 @@ class _OrderPageState extends State<OrderPage>
     return Scaffold(
       appBar: AppBar(
         title: Text('My Orders'),
-        bottom: TabBar(
-          controller: _tabController,
-          tabs: [
-            Tab(text: 'Pending'),
-            Tab(text: 'Confirmed'),
-            Tab(text: 'Shipped'),
-            Tab(text: 'Completed'),
-          ],
-        ),
       ),
-      body: TabBarView(
-        controller: _tabController,
-        children: [
-          _buildOrdersList('pending'),
-          _buildOrdersList('confirmed'),
-          _buildOrdersList('shipped'),
-          _buildOrdersList('completed'),
-        ],
-      ),
+      body: _buildOrdersList(),
       bottomNavigationBar: BottomAppBar(
+        color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(
               icon: const Icon(
-                Icons.home,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.home_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to home
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => HomePage(),
+                    builder: (context) => const HomePage(),
                   ),
                 );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.assignment,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.assignment_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
-                // You are already on the orders page, so no need to navigate
+                // Navigate to orders
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const OrderPage(),
+                  ),
+                );
               },
             ),
             IconButton(
               icon: const Icon(
-                Icons.shopping_cart,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.shopping_cart_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to cart page
@@ -96,15 +82,15 @@ class _OrderPageState extends State<OrderPage>
             ),
             IconButton(
               icon: const Icon(
-                Icons.account_circle,
-                color: Color.fromARGB(255, 12, 113, 51),
+                Icons.account_circle_outlined,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
               onPressed: () {
                 // Navigate to account
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AccountPage(),
+                    builder: (context) => const AccountPage(),
                   ),
                 );
               },
@@ -115,13 +101,12 @@ class _OrderPageState extends State<OrderPage>
     );
   }
 
-  Widget _buildOrdersList(String status) {
+  Widget _buildOrdersList() {
     return StreamBuilder(
       stream: FirebaseFirestore.instance
           .collection('orders')
           .doc(userId)
           .collection('products')
-          .where('status', isEqualTo: status)
           .snapshots(),
       builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (!snapshot.hasData) {
