@@ -17,6 +17,21 @@ class CartPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: Text('Shopping Cart'),
+        actions: [
+          // Add the IconButton for the cart
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Navigate to the cart page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: userId != null
           ? CartItemList(userId: userId)
@@ -55,21 +70,6 @@ class CartPage extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to cart page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
                   ),
                 );
               },
@@ -145,6 +145,7 @@ class CartItemList extends StatelessWidget {
                 Text(
                     'Rs.${(data['price'] * data['quantity']).toStringAsFixed(2)}'),
                 IconButton(
+                  color: Colors.red,
                   icon: Icon(Icons.remove_circle_outline),
                   onPressed: () {
                     // Remove item from the cart
@@ -166,13 +167,6 @@ class CartItemList extends StatelessWidget {
             Expanded(
               child: ListView(
                 children: cartItems,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Total Cost: Rs.${totalCost.toStringAsFixed(2)}',
-                style: TextStyle(fontSize: 18),
               ),
             ),
             SizedBox(

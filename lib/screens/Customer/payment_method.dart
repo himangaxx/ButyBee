@@ -38,6 +38,21 @@ class _PaymentPageState extends State<PaymentPage> {
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: Text('Choose Payment Method'),
+        actions: [
+          // Add the IconButton for the cart
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Navigate to the cart page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 6, 42, 118),
@@ -71,21 +86,6 @@ class _PaymentPageState extends State<PaymentPage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to cart page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
                   ),
                 );
               },

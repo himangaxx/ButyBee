@@ -34,6 +34,21 @@ class _HomePageState extends State<HomePage> {
             color: Color.fromARGB(255, 20, 92, 216),
           ),
         ),
+        actions: [
+          // Add the IconButton for the cart
+          IconButton(
+            icon: const Icon(Icons.shopping_cart),
+            onPressed: () {
+              // Navigate to the cart page
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: Column(
         children: [
@@ -102,21 +117,6 @@ class _HomePageState extends State<HomePage> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to cart page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
                   ),
                 );
               },
