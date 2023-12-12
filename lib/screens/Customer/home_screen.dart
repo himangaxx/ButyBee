@@ -169,7 +169,7 @@ class ProductList extends StatelessWidget {
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3, // Adjust the number of cards per row as needed
+            crossAxisCount: 2, // Adjust the number of cards per row as needed
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
           ),
@@ -205,7 +205,7 @@ class ProductList extends StatelessWidget {
                       left: 0,
                       right: 0,
                       child: Container(
-                        color: Color.fromARGB(255, 6, 17, 113).withOpacity(0.5),
+                        color: Color.fromARGB(255, 255, 255, 255),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
@@ -214,17 +214,17 @@ class ProductList extends StatelessWidget {
                               Text(
                                 data['name'],
                                 style: const TextStyle(
-                                  fontSize: 8,
+                                  fontSize: 12,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white,
+                                  color: Color.fromARGB(255, 0, 0, 0),
                                 ),
                               ),
                               const SizedBox(height: 4),
                               Text(
                                 'Rs.${data['price'].toString()}',
                                 style: const TextStyle(
-                                  fontSize: 6,
-                                  color: Colors.white,
+                                  fontSize: 12,
+                                  color: Color.fromARGB(255, 60, 60, 60),
                                 ),
                               ),
                             ],
