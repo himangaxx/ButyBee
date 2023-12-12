@@ -64,6 +64,7 @@ class _ProductPageState extends State<ProductPage> {
       },
       child: Scaffold(
         appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 190, 210, 253),
           title: const Text('Product Details'),
         ),
         body: Padding(

@@ -28,6 +28,7 @@ class _AccountPageState extends State<AccountPage> {
     // String? userId = getCurrentUserId();
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: const Text('Edit Profile'),
       ),
       body: Padding(

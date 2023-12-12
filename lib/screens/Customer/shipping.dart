@@ -30,78 +30,6 @@ class _ViewShippingDetailsPageState extends State<ViewShippingDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shipping Details'),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 6, 42, 118),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(
-                Icons.home_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to home
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.assignment_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to orders
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to cart page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.account_circle_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to account
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AccountPage(),
-                  ),
-                );
-              },
-            ),
-          ],
-        ),
-      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('users')
@@ -118,29 +46,30 @@ class _ViewShippingDetailsPageState extends State<ViewShippingDetailsPage> {
           }
 
           if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('No Shipping Address Available'),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              NewUserShippingDetailsPage(userId: userId),
-                        ),
-                      );
-                    },
-                    child: Text('Add Shipping Address'),
-                  ),
-                ],
-              ),
-            );
+            return NewUserShippingDetailsPage(userId: userId);
+            // return Center(
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text('No Shipping Address Available'),
+            //       SizedBox(
+            //         height: 20,
+            //       ),
+            //       ElevatedButton(
+            //         onPressed: () {
+            //           Navigator.push(
+            //             context,
+            //             MaterialPageRoute(
+            //               builder: (context) =>
+            //                   NewUserShippingDetailsPage(userId: userId),
+            //             ),
+            //           );
+            //         },
+            //         child: Text('Add Shipping Address'),
+            //       ),
+            //     ],
+            //   ),
+            // );
           }
 
           // Take the first document if available

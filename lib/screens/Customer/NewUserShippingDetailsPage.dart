@@ -1,7 +1,4 @@
-import 'package:admin/screens/Customer/account_page.dart';
-import 'package:admin/screens/Customer/cart_page.dart';
-import 'package:admin/screens/Customer/home_screen.dart';
-import 'package:admin/screens/Customer/order_page.dart';
+import 'package:admin/screens/Customer/payment_method.dart';
 import 'package:admin/screens/Customer/shipping_details.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -28,9 +25,6 @@ class _NewUserShippingDetailsPageState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Shipping Details'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
@@ -73,7 +67,7 @@ class _NewUserShippingDetailsPageState
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 5, 129, 44),
+                    backgroundColor: Color.fromARGB(255, 6, 42, 118),
                   ),
                   onPressed: () {
                     // Save shipping details to Firestore
@@ -85,75 +79,6 @@ class _NewUserShippingDetailsPageState
               ),
             ],
           ),
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        color: Color.fromARGB(255, 6, 42, 118),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            IconButton(
-              icon: const Icon(
-                Icons.home_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to home
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const HomePage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.assignment_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to orders
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OrderPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.shopping_cart_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to cart page
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => CartPage(),
-                  ),
-                );
-              },
-            ),
-            IconButton(
-              icon: const Icon(
-                Icons.account_circle_outlined,
-                color: Color.fromARGB(255, 255, 255, 255),
-              ),
-              onPressed: () {
-                // Navigate to account
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AccountPage(),
-                  ),
-                );
-              },
-            ),
-          ],
         ),
       ),
     );
@@ -181,8 +106,8 @@ class _NewUserShippingDetailsPageState
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => ShippingDetailsPage(
-            userId: widget.userId!), // Use widget.userId here
+        builder: (context) =>
+            PaymentPage(userId: widget.userId!), // Use widget.userId here
       ),
     );
   }

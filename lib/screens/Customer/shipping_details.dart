@@ -2,6 +2,7 @@ import 'package:admin/screens/Customer/account_page.dart';
 import 'package:admin/screens/Customer/cart_page.dart';
 import 'package:admin/screens/Customer/home_screen.dart';
 import 'package:admin/screens/Customer/order_page.dart';
+import 'package:admin/screens/Customer/payment_method.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -33,6 +34,7 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: Text('Shipping Details'),
       ),
       body: Padding(
@@ -77,7 +79,7 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 5, 129, 44),
+                    backgroundColor: Color.fromARGB(255, 6, 42, 118),
                   ),
                   onPressed: () {
                     // Save or update shipping details to Firestore
@@ -213,6 +215,11 @@ class _ShippingDetailsPageState extends State<ShippingDetailsPage> {
     });
 
     // Navigate back to the cart or another page
-    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentPage(userId: widget.userId!),
+      ),
+    );
   }
 }

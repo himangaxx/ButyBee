@@ -2,6 +2,7 @@ import 'package:admin/screens/Customer/account_page.dart';
 import 'package:admin/screens/Customer/home_screen.dart';
 import 'package:admin/screens/Customer/order_page.dart';
 import 'package:admin/screens/Customer/shipping.dart';
+import 'package:admin/screens/Customer/shipping_details.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class CartPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: Text('Shopping Cart'),
       ),
       body: userId != null
@@ -143,7 +145,7 @@ class CartItemList extends StatelessWidget {
                 Text(
                     'Rs.${(data['price'] * data['quantity']).toStringAsFixed(2)}'),
                 IconButton(
-                  icon: Icon(Icons.remove_shopping_cart),
+                  icon: Icon(Icons.remove_circle_outline),
                   onPressed: () {
                     // Remove item from the cart
                     FirebaseFirestore.instance
@@ -181,7 +183,7 @@ class CartItemList extends StatelessWidget {
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
-                    backgroundColor: Color.fromARGB(255, 5, 129, 44),
+                    backgroundColor: Color.fromARGB(255, 6, 42, 118),
                   ),
                   onPressed: () {
                     // Navigate to the shipping details page
@@ -189,7 +191,7 @@ class CartItemList extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            ViewShippingDetailsPage(userId: userId),
+                            ShippingDetailsPage(userId: userId),
                       ),
                     );
                   },

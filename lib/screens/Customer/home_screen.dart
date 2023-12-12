@@ -25,50 +25,51 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: const Text(
-          '              ButyBee',
+          '               ButyBee',
           style: TextStyle(
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-              color: Colors.blueAccent),
+            fontSize: 25,
+            fontWeight: FontWeight.bold,
+            color: Color.fromARGB(255, 20, 92, 216),
+          ),
         ),
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(56),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                    30), // Adjust the value to change the oval shape
-                color: const Color.fromARGB(
-                    255, 226, 226, 226), // Background color of the search bar
-              ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  controller: _searchController,
-                  onChanged: (value) {
-                    // Handle search query changes
-                    // You may want to update the displayed product list based on the search query
+      ),
+      body: Column(
+        children: [
+          SizedBox(height: 12),
+          Container(
+            padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: const Color.fromARGB(255, 226, 226, 226),
+            ),
+            child: TextField(
+              controller: _searchController,
+              onChanged: (value) {
+                // Handle search query changes
+                // You may want to update the displayed product list based on the search query
+              },
+              decoration: InputDecoration(
+                hintText: 'Search products',
+                border: InputBorder.none,
+                // Remove the default border
+                suffixIcon: IconButton(
+                  icon: const Icon(Icons.clear),
+                  onPressed: () {
+                    // Clear the search query
+                    _searchController.clear();
                   },
-                  decoration: InputDecoration(
-                    hintText: 'Search products',
-                    border: InputBorder.none, // Remove the default border
-                    suffixIcon: IconButton(
-                      icon: const Icon(Icons.clear),
-                      onPressed: () {
-                        // Clear the search query
-                        _searchController.clear();
-                      },
-                    ),
-                  ),
                 ),
               ),
             ),
           ),
-        ),
+          SizedBox(height: 12),
+          Expanded(
+            child: ProductList(searchQuery: _searchController.text),
+          ),
+        ],
       ),
-      body: ProductList(searchQuery: _searchController.text),
       bottomNavigationBar: BottomAppBar(
         color: Color.fromARGB(255, 6, 42, 118),
         shape: const CircularNotchedRectangle(),
@@ -168,7 +169,7 @@ class ProductList extends StatelessWidget {
 
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 1, // Adjust the number of cards per row as needed
+            crossAxisCount: 3, // Adjust the number of cards per row as needed
             crossAxisSpacing: 8.0,
             mainAxisSpacing: 8.0,
           ),
@@ -213,7 +214,7 @@ class ProductList extends StatelessWidget {
                               Text(
                                 data['name'],
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 8,
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white,
                                 ),
@@ -222,7 +223,7 @@ class ProductList extends StatelessWidget {
                               Text(
                                 'Rs.${data['price'].toString()}',
                                 style: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 6,
                                   color: Colors.white,
                                 ),
                               ),

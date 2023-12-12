@@ -2,7 +2,6 @@ import 'package:admin/screens/Customer/account_page.dart';
 import 'package:admin/screens/Customer/cart_page.dart';
 import 'package:admin/screens/Customer/home_screen.dart';
 import 'package:admin/screens/Customer/order_page.dart';
-import 'package:admin/screens/Customer/thankyou.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,6 +36,7 @@ class _PaymentPageState extends State<PaymentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Color.fromARGB(255, 190, 210, 253),
         title: Text('Choose Payment Method'),
       ),
       bottomNavigationBar: BottomAppBar(
@@ -116,17 +116,15 @@ class _PaymentPageState extends State<PaymentPage> {
           children: [
             buildPaymentMethodTile('Card Payment', Icons.credit_card),
             buildPaymentMethodTile('Cash on Delivery', Icons.money),
-            buildPaymentMethodTile(
-                'Online Transaction', Icons.online_prediction),
-            buildPaymentMethodTile('PayPal', Icons.payment),
             SizedBox(height: 16),
             if (selectedPaymentMethod == 'Card Payment')
               buildCardPaymentFields(),
-            if (selectedPaymentMethod == 'PayPal') buildPayPalSignInButton(),
-            if (selectedPaymentMethod == 'Online Transaction')
-              buildFileUploadField(),
             SizedBox(height: 16),
             ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Color.fromARGB(255, 6, 42, 118),
+              ),
               onPressed: () {
                 // Validate and process the selected payment method
                 if (validatePayment()) {
@@ -137,7 +135,7 @@ class _PaymentPageState extends State<PaymentPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => ThankYouPage(),
+                      builder: (context) => HomePage(),
                     ),
                   );
                 }
@@ -255,7 +253,6 @@ class _PaymentPageState extends State<PaymentPage> {
             String productImg = cartItem['imageUrl'];
             int quantity = cartItem['quantity'];
             String paymentMethod = selectedPaymentMethod;
-            String fileUrl = ''; // default value for non-online transaction
 
             Future<String> uploadFile() async {
               FilePickerResult? result = await FilePicker.platform.pickFiles();
@@ -339,22 +336,29 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Widget buildPaymentMethodTile(String title, IconData icon) {
-    return ListTile(
-      title: Text(title),
-      leading: Radio(
-        value: title,
-        groupValue: selectedPaymentMethod,
-        onChanged: (value) {
-          setState(() {
-            selectedPaymentMethod = value as String;
-          });
-        },
-      ),
-      onTap: () {
+    return ElevatedButton(
+      onPressed: () {
         setState(() {
           selectedPaymentMethod = title;
         });
       },
+      style: ElevatedButton.styleFrom(
+        primary: selectedPaymentMethod == title
+            ? Colors.blue // Set the button color when selected
+            : Colors.grey, // Set the button color when not selected
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
+          Icon(icon, color: Colors.white),
+        ],
+      ),
     );
   }
 
